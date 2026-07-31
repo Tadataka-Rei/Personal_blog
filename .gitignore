@@ -1,0 +1,19 @@
+# Environment variables (contains secrets!)
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node / frontend dependencies (if any)
+node_modules/
+
+# Docker volumes (local)
+blog-data/
+

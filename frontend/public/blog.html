@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <link rel="icon" type="image/x-icon" href="/img/icon.png">
+
+    <link rel="stylesheet" href="/src/css/style.css?v=1.0.0">
+    <link rel="stylesheet" href="/src/css/blog.css?v=1.0.0">
+
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a class="nav-item active" href="blog.html">
+            <span class="rabbit"></span>
+            <span class="label">Blog</span>
+        </a>
+
+        <a class="nav-item" href="index.html">
+            <span class="rabbit"></span>
+            <span class="label">Home</span>
+        </a>
+
+        <a class="nav-item" href="about.html">
+            <span class="rabbit"></span>
+            <span class="label">About</span>
+        </a>
+    </nav>
+
+    <main class="page page-blog">
+        <section class="blog">
+            <div class="blog-head">
+                <h1 class="section-title">Blog</h1>
+                <p class="lead">Posts about frontend development, design systems, and performance.</p>
+            </div>
+
+            <div class="search-wrap">
+                <input class="search-input" type="text" placeholder="Search posts by title, tag, or keyword…" aria-label="Search posts">
+            </div>
+
+            <div class="posts">
+                <!-- Posts rendered dynamically by script.js -->
+            </div>
+        </section>
+    </main>
+    <footer class="site-footer">
+        <p class="footer-text">© 2025 Tevel. All rights reserved.</p>
+    </footer>
+    <script src="/src/js/script.js"></script>
+
+</body>
+</html>
+

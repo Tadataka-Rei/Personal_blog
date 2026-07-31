@@ -1,0 +1,52 @@
+# =============================================================================
+# docker-compose.yml — Blog Admin with Backend (PHP-FPM + nginx) & Frontend (nginx)
+# =============================================================================
+# Usage:
+#   1. cp .env.example .env   (edit credentials and ports as needed)
+#   2. docker compose up -d --build
+#   3. Visit backend at http://localhost:${BACKEND_PORT:-8080}/backend/
+#   4. Visit frontend at http://localhost:${FRONTEND_PORT:-3000}/
+# =============================================================================
+
+services:
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: blog-backend
+    ports:
+      - "${BACKEND_PORT:-8080}:80"
+    env_file:
+      - .env
+    volumes:
+      # Mount the entire project for live development (optional, remove for prod)
+      - .:/var/www/html
+      # Use the real local frontend data directory so admin writes and the site read the same files
+      - ./frontend/data:/var/www/html/frontend/data
+    environment:
+      # Override the data directory to the shared local data path
+      DATA_DIR: /var/www/html/frontend/data
+      # Ensure SITE_URL is passed for the admin panel links
+      SITE_URL: ${SITE_URL:-http://localhost:8080}
+    restart: unless-stopped
+
+  # ── Frontend: Nginx serving static files ───────────────────────────────────
+  frontend:
+    image: nginx:alpine
+    container_name: blog-frontend
+    ports:
+      - "${FRONTEND_PORT:-3000}:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+# ── Named volumes ────────────────────────────────────────────────────────────
+volumes:
+  blog-data:
+    driver: local
+
+
