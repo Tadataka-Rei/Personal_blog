@@ -5,8 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Post</title>
     <link rel="icon" type="image/x-icon" href="/img/icon.png">
-    <link rel="stylesheet" href="/src/css/style.css?v=1.0.0">
-    <link rel="stylesheet" href="/src/css/post.css?v=1.0.0">
+    <!-- <link rel="stylesheet" href="/src/css/style.css?v=1.0.0">
+    <link rel="stylesheet" href="/src/css/post.css?v=1.0.0"> -->
+    <link id="style-css" rel="stylesheet" href="/src/css/style.css">
+<link id="post-css" rel="stylesheet" href="/src/css/post.css">
+
+<script>
+const v = Date.now();
+document.getElementById("style-css").href = `/src/css/style.css?v=${v}`;
+document.getElementById("post-css").href = `/src/css/post.css?v=${v}`;
+</script>
 </head>
 
 <body>

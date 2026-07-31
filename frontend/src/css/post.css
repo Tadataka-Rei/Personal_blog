@@ -152,6 +152,11 @@ body{
     margin:0 0 1.2rem;
 }
 
+.post-body p img{
+    width: 90%;
+    height: auto;
+}
+
 .post-body code{
     background:rgba(0,225,255,.1);
     border:1px solid var(--border);
