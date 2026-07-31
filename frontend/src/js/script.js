@@ -42,18 +42,16 @@ function getLocalDataUrl(path) {
 
 // ---- Blog listing page ----
 const postsContainer = document.querySelector(".posts");
+const paginationEl = document.querySelector(".pagination");
 let allPosts = [];
 
-function renderPosts(posts) {
-  postsContainer.innerHTML = "";
-  if (posts.length === 0) {
-    postsContainer.innerHTML = '<p style="color:var(--muted);text-align:center;grid-column:1/-1;">No posts match your search.</p>';
-    return;
-  }
-  posts.forEach((post) => {
-    postsContainer.appendChild(createPostCard(post));
-  });
-}
+// Pagination instance — 8 posts per page
+const pagination = new Pagination({
+  container: postsContainer,
+  paginationEl,
+  posts: [],
+  postsPerPage: 8,
+});
 
 if (postsContainer) {
   fetch(buildDataUrl(getLocalDataUrl("/data/posts.json")), { cache: "no-store" })
@@ -63,7 +61,7 @@ if (postsContainer) {
     })
     .then((data) => {
       allPosts = data.posts;
-      renderPosts(allPosts);
+      pagination.updatePosts(allPosts);
     })
     .catch((err) => {
       console.error(err);
@@ -79,7 +77,7 @@ if (searchInput) {
     const query = e.target.value.trim().toLowerCase();
 
     if (query === "") {
-      renderPosts(allPosts);
+      pagination.updatePosts(allPosts);
       return;
     }
 
@@ -90,7 +88,7 @@ if (searchInput) {
       return title.includes(query) || desc.includes(query) || tags.includes(query);
     });
 
-    renderPosts(filtered);
+    pagination.updatePosts(filtered);
   });
 }
 

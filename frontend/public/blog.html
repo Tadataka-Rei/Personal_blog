@@ -6,8 +6,16 @@
     <title>Blog</title>
     <link rel="icon" type="image/x-icon" href="/img/icon.png">
 
-    <link rel="stylesheet" href="/src/css/style.css?v=1.0.0">
-    <link rel="stylesheet" href="/src/css/blog.css?v=1.0.0">
+    <!-- <link rel="stylesheet" href="/src/css/style.css?v=1.0.0">
+    <link rel="stylesheet" href="/src/css/blog.css?v=1.0.0"> -->
+    <link id="style-css" rel="stylesheet" href="/src/css/style.css">
+    <link id="post-css" rel="stylesheet" href="/src/css/blog.css">
+
+    <script>
+    const v = Date.now();
+    document.getElementById("style-css").href = `/src/css/style.css?v=${v}`;
+    document.getElementById("post-css").href = `/src/css/blog.css?v=${v}`;
+    </script>
 
 </head>
 
@@ -41,14 +49,19 @@
                 <input class="search-input" type="text" placeholder="Search posts by title, tag, or keyword…" aria-label="Search posts">
             </div>
 
-            <div class="posts">
+<div class="posts">
                 <!-- Posts rendered dynamically by script.js -->
+            </div>
+
+            <div class="pagination">
+                <!-- Pagination buttons rendered dynamically by script.js -->
             </div>
         </section>
     </main>
     <footer class="site-footer">
-        <p class="footer-text">© 2025 Tevel. All rights reserved.</p>
+        <p class="footer-text">© 2026 Tevel. All rights reserved.</p>
     </footer>
+    <script src="/src/js/pagination.js"></script>
     <script src="/src/js/script.js"></script>
 
 </body>
