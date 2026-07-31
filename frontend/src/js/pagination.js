@@ -64,11 +64,25 @@ class Pagination {
     );
 
     // Numbered buttons
-    for (let i = 1; i <= this.totalPages; i++) {
-      inner.appendChild(
-        this._buildBtn(String(i), "", i, false, i === this.currentPage)
-      );
+    this._getVisiblePages().forEach((page) => {
+    if (page === "...") {
+        const span = document.createElement("span");
+        span.className = "page-ellipsis";
+        span.textContent = "…";
+        inner.appendChild(span);
+    } else {
+        inner.appendChild(
+        this._buildBtn(
+            String(page),
+            "",
+            page,
+            false,
+            page === this.currentPage
+        )
+        );
     }
+    });
+
 
     // Next button
     inner.appendChild(
@@ -99,5 +113,48 @@ class Pagination {
     this.currentPage = 1;
     this.renderPage(1);
   }
+  _getVisiblePages() {
+  const total = this.totalPages;
+  const current = this.currentPage;
+
+  // Small page counts: show everything.
+  if (total <= 7) {
+    return Array.from({ length: total }, (_, i) => i + 1);
+  }
+
+  const pages = [];
+
+  pages.push(1);
+
+  let start = Math.max(2, current - 1);
+  let end = Math.min(total - 1, current + 1);
+
+  // Keep 3 middle buttons near the edges
+  if (current <= 3) {
+    start = 2;
+    end = 4;
+  }
+
+  if (current >= total - 2) {
+    start = total - 3;
+    end = total - 1;
+  }
+
+  if (start > 2) {
+    pages.push("...");
+  }
+
+  for (let i = start; i <= end; i++) {
+    pages.push(i);
+  }
+
+  if (end < total - 1) {
+    pages.push("...");
+  }
+
+  pages.push(total);
+
+  return pages;
+}
 }
 
