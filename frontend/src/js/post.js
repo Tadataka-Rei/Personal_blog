@@ -1,36 +1,22 @@
 /* ============================================
    post.js — Single post detail page
    Loaded on: post.html
-   Depends on: common.js (helpers)
+   Depends on: common.js (helpers, loadPostCatalog)
    ============================================ */
 
 // ---- Post detail page ----
 const postContainer = document.querySelector(".post-full");
 if (postContainer) {
-  // Get post id from URL query param
+  // Get post id / global index from URL query params
   const params = new URLSearchParams(window.location.search);
   const postId = params.get("id");
+  const postIndex = params.get("index");
 
-  if (!postId) {
+  if (!postId && postIndex === null) {
     postContainer.innerHTML =
       '<p style="color:var(--muted);">No post specified. <a href="blog.html" style="color:var(--cyan);">Go back to blog.</a></p>';
   } else {
-    // Fetch the master index to find the detail path
-    fetch(buildDataUrl(getLocalDataUrl("/data/posts.json")), { cache: "no-store" })
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to load posts.json");
-        return res.json();
-      })
-      .then((data) => {
-        const match = data.posts.find((p) => p.id === postId);
-        if (!match) throw new Error(`Post "${postId}" not found`);
-
-        // Fetch the individual post detail
-        return fetch(buildDataUrl(getLocalDataUrl(`/${match.detail}`)), { cache: "no-store" }).then((res) => {
-          if (!res.ok) throw new Error(`Failed to load ${match.detail}`);
-          return res.json();
-        });
-      })
+    loadPost(postId, postIndex)
       .then((post) => {
         renderPostDetail(post);
         // Update page title
@@ -44,6 +30,67 @@ if (postContainer) {
           </p>`;
       });
   }
+}
+
+/**
+ * Load a single full post using the post-count.js catalog.
+ * Supports:
+ *   1. ?id=<id>      — resolved via byId map (key + index within month data file)
+ *   2. ?index=<n>    — global index across all months (fast range lookup)
+ *   3. Fallback      — scan every month data file for the id
+ */
+async function loadPost(postId, postIndex) {
+  const cat = await loadPostCatalog();
+  if (!cat) throw new Error("No post catalog found");
+
+  // 1. byId lookup
+  if (postId && cat.byId && cat.byId[postId]) {
+    const ref = cat.byId[postId];
+    const post = await fetchByMonthIndex(ref.key, ref.index);
+    if (post) return post;
+  }
+
+  // 2. Global index lookup (?index=N)
+  if (postIndex !== null) {
+    const n = parseInt(postIndex, 10);
+    if (!isNaN(n) && Array.isArray(cat.files)) {
+      let offset = 0;
+      for (const f of cat.files) {
+        if (n >= offset && n < offset + f.count) {
+          const post = await fetchByMonthIndex(f.key, n - offset);
+          if (post) return post;
+        }
+        offset += f.count;
+      }
+    }
+  }
+
+  // 3. Fallback: scan all month data files
+  if (postId && Array.isArray(cat.files)) {
+    for (const f of cat.files) {
+      const posts = await fetchMonthData(f.key);
+      const match = posts.find((p) => p.id === postId);
+      if (match) return match;
+    }
+  }
+
+  throw new Error(`Post "${postId || postIndex}" not found`);
+}
+
+/** Fetch the full post list for a single month data file. */
+async function fetchMonthData(key) {
+  const res = await fetch(buildDataUrl(getLocalDataUrl(`/data/posts-data-${key}.json`)), {
+    cache: "no-store",
+  });
+  if (!res.ok) throw new Error(`Failed to load posts-data-${key}.json`);
+  const json = await res.json();
+  return Array.isArray(json) ? json : json.posts || [];
+}
+
+/** Fetch a single post at a given index within a month data file. */
+async function fetchByMonthIndex(key, index) {
+  const posts = await fetchMonthData(key);
+  return posts[index] || null;
 }
 
 // ---- Render full post detail ----

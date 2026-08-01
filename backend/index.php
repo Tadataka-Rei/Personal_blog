@@ -59,8 +59,7 @@ $success = $_GET['success'] ?? '';
                 </thead>
                 <tbody>
                     <?php foreach ($posts as $post): 
-                        $detail = getPostById($post['id']);
-                        $date = $detail['published'] ?? '';
+                        $date = $post['published'] ?? '';
                     ?>
                         <tr>
                             <td class="post-title-cell">
