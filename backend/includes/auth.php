@@ -17,7 +17,7 @@ function isLoggedIn(): bool {
  */
 function requireAuth(): void {
     if (!isLoggedIn()) {
-        redirect('login.php');
+        redirect('backend/login.php');
     }
 }
 

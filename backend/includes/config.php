@@ -14,7 +14,7 @@ ini_set('display_errors', 1);
 (function () {
     $envPaths = [
         dirname(__DIR__, 2) . '/.env',         // project root
-        dirname(__DIR__, 2) . '/backend/.env',  // backend folder
+        dirname(__DIR__, 2) . '/backend/.env',  // backend folder I don't have it but just in case
     ];
 
     foreach ($envPaths as $envPath) {
