@@ -10,11 +10,12 @@ class Pagination {
    * @param {Array}    config.posts           Full list of posts to paginate
    * @param {number}   [config.postsPerPage=8]
    */
-  constructor({ container, paginationEl, posts = [], postsPerPage = 8 }) {
+  constructor({ container, paginationEl, posts = [], postsPerPage = 8, renderItem }) {
     this.container = container;
     this.paginationEl = paginationEl;
     this.posts = posts;
     this.postsPerPage = postsPerPage;
+    this.renderItem = renderItem; // Store the callback
     this.currentPage = 1;
   }
 
@@ -22,7 +23,6 @@ class Pagination {
     return Math.max(1, Math.ceil(this.posts.length / this.postsPerPage));
   }
 
-  /** Render a single page of posts + rebuild the pagination bar. */
   renderPage(page) {
     this.currentPage = Math.min(Math.max(1, page), this.totalPages);
 
@@ -39,7 +39,9 @@ class Pagination {
         '<p style="color:var(--muted);text-align:center;grid-column:1/-1;">No posts match your search.</p>';
     } else {
       pagePosts.forEach((post) => {
-        this.container.appendChild(createPostCard(post));
+        // Use the passed function instead of global createPostCard
+        const card = this.renderItem ? this.renderItem(post) : document.createElement('div');
+        this.container.appendChild(card);
       });
     }
 
