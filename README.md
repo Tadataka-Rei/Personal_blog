@@ -5,7 +5,7 @@
 # <p align="center">Tevel's Dev Blog</p>
 ## Language
 
-[![vietnamese](https://img.shields.io/badge/lang-vi-red.svg)]()
+[![vietnamese](https://img.shields.io/badge/lang-vi-red.svg)](https://github.com/Tadataka-Rei/Personal_blog/blob/main/README.VI.md)
 ---
 A dark-themed personal blog platform built for **Tevel**(me). The project combines a **lightweight static frontend** (HTML/CSS/vanilla JS) with a **PHP admin panel** for full CRUD management of blog posts.
 <div align="center">
