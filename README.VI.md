@@ -5,7 +5,7 @@
 # <p align="center">Tevel's Dev Blog</p>
 ## Ngôn ngữ
 
-[![English](https://img.shields.io/badge/lang-en-blue.svg)]()
+[![English](https://img.shields.io/badge/lang-en-blue.svg)](https://github.com/Tadataka-Rei/Personal_blog/blob/main/README.md)
 ---
 Một nền tảng blog cá nhân có giao diện tối được xây dựng cho **Tevel** (tôi). Dự án kết hợp một **giao diện tĩnh siêu nhẹ** (HTML/CSS/vanilla JS) với một **bảng quản trị PHP** để quản lý đầy đủ các thao tác CRUD cho các bài viết trên blog.
 <div align="center">
