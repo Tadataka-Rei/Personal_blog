@@ -10,7 +10,7 @@ function createPostCard(post) {
   article.className = "post";
 
   article.innerHTML = `
-    <a class="readme-btn" href="post.html?id=${post.id}" aria-label="Read more: ${post.title}">Read more</a>
+    <a class="readme-btn" href="post?id=${post.id}" aria-label="Read more: ${post.title}">Read more</a>
     <div class="post-image" role="img" aria-label="Blog image placeholder">
       <img class="post-image-img" src="${post.image}" alt="${post.title}" loading="lazy">
     </div>
