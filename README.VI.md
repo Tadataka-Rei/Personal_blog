@@ -146,7 +146,7 @@ docker-compose.yml
 1. **Sao chép kho lưu trữ (Clone repository)**
 
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/Tadataka-Rei/Personal_blog.git
    cd Personal_blog
    ```
 
