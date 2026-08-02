@@ -156,7 +156,7 @@ docker-compose.yml
    cp .env.example .env
    ```
 
-   Chỉnh sửa tệp `.env` và thay đổi thông tin xác thực quản trị viên, các cổng (ports), và thêm khóa API TinyMCE của bạn (xem phần [Biến môi trường](#-bien-moi-truong)).
+   Chỉnh sửa tệp `.env` và thay đổi thông tin xác thực quản trị viên, các cổng (ports), và thêm khóa API TinyMCE của bạn (xem phần [Biến môi trường](#-biến-môi-trường)).
 
 3. **Build và khởi động các container**
 
