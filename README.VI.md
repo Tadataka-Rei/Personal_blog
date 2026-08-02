@@ -84,6 +84,7 @@ Bảng quản trị vẫn cung cấp đầy đủ các tính năng CRUD trong kh
 <p align="center">
   <img src="docs/img/editor.png" alt="Trình soạn thảo">
 </p>
+
 ---
 ## ✨ Tính năng
 
