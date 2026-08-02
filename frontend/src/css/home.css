@@ -24,7 +24,7 @@ body{
 }
 
 .hero{
-    margin-top:1.5rem;
+    margin-top:0.1rem;
     text-align:center;
     padding:3.2rem 1rem 2rem;
 }
@@ -46,7 +46,7 @@ body{
 }
 
 .hero-logo img{
-    width:min(20rem, 44vw);
+    width:min(18rem, 44vw);
     height:auto;
     display:block;
     filter: drop-shadow(0 10px 30px rgba(4, 50, 150, 0.637));
@@ -113,7 +113,13 @@ body{
     margin:.35rem 0;
 }
 
-@media (max-width: 720px){
+@media (max-width: 450px){
     .intro-grid{ grid-template-columns:1fr; }
+    .hero-logo{
+        height:clamp(18rem, 18vw, 11rem);
+    }
+    .hero{
+        padding-top: 0px;
+    }
 }
 
