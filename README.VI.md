@@ -115,7 +115,7 @@ Bảng quản trị vẫn cung cấp đầy đủ các tính năng CRUD trong kh
 
 ## 📁 Cấu trúc dự án
 
-mmm
+```
 backend/
  ├── assets/
  ├── includes/
@@ -131,7 +131,7 @@ frontend/
 docker/
 Dockerfile
 docker-compose.yml
-mmm
+```
 
 ---
 
@@ -145,24 +145,24 @@ mmm
 
 1. **Sao chép kho lưu trữ (Clone repository)**
 
-   mmmbash
+   ```bash
    git clone <your-repo-url>
    cd Personal_blog
-   mmm
+   ```
 
 2. **Tạo tệp môi trường của bạn**
 
-   mmmbash
+   ```bash
    cp .env.example .env
-   mmm
+   ```
 
    Chỉnh sửa tệp `.env` và thay đổi thông tin xác thực quản trị viên, các cổng (ports), và thêm khóa API TinyMCE của bạn (xem phần [Biến môi trường](#-bien-moi-truong)).
 
 3. **Build và khởi động các container**
 
-   mmmbash
+   ```bash
    docker compose up -d --build
-   mmm
+   ```
 
 4. **Mở trang web**
 
@@ -238,11 +238,11 @@ Giao diện sử dụng chủ đề tối (dark theme) được điều khiển 
 
 Phần nền đặc trưng của trang là một dải gradient phân lớp:
 
-mmmcss
+```css
 background:
   radial-gradient(1200px 500px at 50% -150px, rgba(0,225,255,.22), transparent 60%),
   linear-gradient(180deg, #050717 0%, #070a1a 100%);
-mmm
+```
 
 - **`#050717`** — phần trên của gradient tuyến tính (màu xanh đen gần đen)
 - **`#070a1a`** — phần dưới của gradient tuyến tính (`--bg`)
@@ -260,15 +260,15 @@ mmm
 
 2. **Build và khởi động**
 
-   mmmbash
+   ```bash
    docker compose up -d --build
-   mmm
+   ```
 
 3. **Kiểm tra lại các dịch vụ**
 
-   mmmbash
+   ```bash
    docker compose ps
-   mmm
+   ```
 
    Cả hai container (`blog-backend`, `blog-frontend`) đều phải hiển thị trạng thái `Up` và hoạt động ổn định.
 
@@ -281,9 +281,9 @@ mmm
 
 Cập nhật `SITE_URL` trong tệp `.env` thành URL quản trị công khai (ví dụ: `https://blog.example.com`) và khởi động lại:
 
-mmmbash
+```bash
 docker compose up -d
-mmm
+```
 
 ### Các lưu ý khi triển khai thực tế
 
