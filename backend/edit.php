@@ -125,9 +125,15 @@ if (!$post) {
             code { background: rgba(0,225,255,.1); padding: 2px 6px; border-radius: 3px; }
             blockquote { border-left: 3px solid #00e1ff; margin: 1em 0; padding: .5em 1em; background: rgba(0,225,255,.05); }
         `,
-        valid_elements: '*[*]',
+valid_elements: '*[*]',
         extended_valid_elements: 'img[class|src|alt|title|width|height|loading|style],a[class|href|target|rel|title|name],code[class],span[class|style],div[class|style],iframe[src|title|width|height|allowfullscreen|style]',
         valid_children: '+body[style],+div[style]',
+        // ── Image upload: drag & drop / paste images → saved as files in frontend/data/uploads ──
+        automatic_uploads: true,
+        paste_data_images: true,
+        images_upload_url: 'upload.php',
+        images_upload_handler: undefined,
+        images_reuse_filename: true,
         setup: function (editor) {
             editor.on('change', function () {
                 editor.save();

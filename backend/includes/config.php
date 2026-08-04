@@ -66,6 +66,7 @@ define('DATA_DIR', $dataDir);
 define('POSTS_INDEX', DATA_DIR . '/posts.json');
 define('POSTS_DIR', DATA_DIR . '/posts');
 define('POST_COUNT_JS', DATA_DIR . '/post-count.js');
+define('UPLOADS_DIR', DATA_DIR . '/uploads');
 
 // Admin credentials — from environment variables, fall back to defaults
 define('ADMIN_USERNAME', getenv('ADMIN_USERNAME') ?: 'admin');

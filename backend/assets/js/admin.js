@@ -119,6 +119,12 @@ function addSection() {
             valid_elements: '*[*]',
             extended_valid_elements: 'img[class|src|alt|title|width|height|loading|style],a[class|href|target|rel|title],code[class],span[class|style],div[class|style]',
             valid_children: '+body[style],+div[style]',
+            // ── Image upload: drag & drop / paste images → saved as files in frontend/data/uploads ──
+            automatic_uploads: true,
+            paste_data_images: true,
+            images_upload_url: 'upload.php',
+            images_upload_handler: undefined,
+            images_reuse_filename: true,
             setup: function (editor) {
                 editor.on('change', function () {
                     editor.save();
@@ -168,4 +174,3 @@ function renumberSections() {
 function confirmDelete(form) {
     return confirm('Are you sure you want to delete this post? This action cannot be undone.');
 }
-
