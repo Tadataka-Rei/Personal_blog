@@ -156,22 +156,48 @@ docker-compose.yml
    cp .env.example .env
    ```
 
-   Chỉnh sửa tệp `.env` và thay đổi thông tin xác thực quản trị viên, các cổng (ports), và thêm khóa API TinyMCE của bạn (xem phần [Biến môi trường](#-bien-moi-truong)).
+   Chỉnh sửa tệp `.env` và thay đổi thông tin xác thực quản trị viên, các cổng (ports), và thêm khóa API TinyMCE của bạn (xem phần [Biến môi trường](#-biến-môi-trường)).
+Đây là bản dịch tiếng Việt của Mục 3:
 
-3. **Build và khởi động các container**
+3. **Thiết lập quyền cho thư mục dữ liệu**
+
+   Docker cần có quyền ghi vào thư mục `Personal_blog/frontend/data` để có thể tạo, chỉnh sửa và thực thi các tệp trong thư mục này.
+
+   **Linux/macOS**
+
+   ```bash
+   sudo chown -R $USER:$USER frontend/data
+   chmod -R 775 frontend/data
+   ```
+
+   > Nếu container của bạn chạy dưới một người dùng khác (ví dụ: `www-data`), hãy thay thế `$USER:$USER` bằng người dùng và nhóm phù hợp.
+
+   **Windows (PowerShell)**
+
+   Nếu bạn sử dụng Docker Desktop với WSL2 thì thông thường không cần thực hiện thêm bước nào.
+
+   Nếu bạn sử dụng Windows containers hoặc gặp lỗi liên quan đến quyền truy cập, hãy chạy:
+
+   ```powershell
+   icacls .\frontend\data /grant Users:(OI)(CI)M /T
+   ```
+
+   Lệnh trên cấp quyền cho người dùng tạo, chỉnh sửa và xóa các tệp cũng như thư mục bên trong `frontend/data`.
+   
+4. **Build và khởi động các container**
 
    ```bash
    docker compose up -d --build
    ```
 
-4. **Mở trang web**
+5. **Mở trang web**
 
    | Dịch vụ | URL |
    | ------- | ------------------------------ |
    | Giao diện người dùng | http://localhost:3000/ |
    | Quản trị | http://localhost:8080/backend/ |
 
-5. **Đăng nhập vào bảng quản trị** bằng thông tin xác thực được thiết lập trong tệp `.env` của bạn (mặc định: `admin` / `admin123`).
+6. **Đăng nhập vào bảng quản trị** bằng thông tin xác thực được thiết lập trong tệp `.env` của bạn (mặc định: `admin` / `admin123`).
 
 > [!IMPORTANT]
 > Hãy thay đổi thông tin xác thực quản trị mặc định trước khi tiến hành triển khai lên môi trường sản xuất.

@@ -84,6 +84,7 @@ The admin panel still provides full CRUD while the frontend remains completely s
 <p align="center">
   <img src="docs/img/editor.png" alt="Editor">
 </p>
+
 ---
 ## ✨ Features
 
@@ -157,21 +158,45 @@ docker-compose.yml
    ```
 
    Edit `.env` and change the admin credentials, ports, and add your TinyMCE API key (see [Environment Variables](#-environment-variables)).
+3. **Set permissions for the data directory**
 
-3. **Build and start the containers**
+   Docker needs write access to `Personal_blog/frontend/data` so it can create, modify, and execute files.
+
+   **Linux/macOS**
+
+   ```bash
+   sudo chown -R $USER:$USER frontend/data
+   chmod -R 775 frontend/data
+   ```
+
+   > If your container runs as a different user (for example `www-data`), you may need to replace `$USER:$USER` with the appropriate user and group.
+
+   **Windows (PowerShell)**
+
+   If you're using Docker Desktop with WSL2, no additional steps are usually required.
+
+   If you're using Windows containers or encounter permission issues, run:
+
+   ```powershell
+   icacls .\frontend\data /grant Users:(OI)(CI)M /T
+   ```
+
+   This grants users permission to create, modify, and delete files within the directory.
+
+4. **Build and start the containers**
 
    ```bash
    docker compose up -d --build
    ```
 
-4. **Open the site**
+5. **Open the site**
 
    | Service  | URL                            |
    | -------- | ------------------------------ |
    | Frontend | http://localhost:3000/         |
    | Admin    | http://localhost:8080/backend/ |
 
-5. **Log in to the admin panel** with the credentials set in your `.env` (defaults: `admin` / `admin123`).
+6. **Log in to the admin panel** with the credentials set in your `.env` (defaults: `admin` / `admin123`).
 
 > [!IMPORTANT]
 > Change the default admin credentials before deploying.
