@@ -55,6 +55,15 @@ if ($file['error'] !== UPLOAD_ERR_OK) {
     exit;
 }
 
+// Enforce a maximum file size (keep in sync with nginx client_max_body_size).
+define('MAX_UPLOAD_BYTES', 25 * 1024 * 1024); // 25 MB
+if ($file['size'] > MAX_UPLOAD_BYTES) {
+    http_response_code(413);
+    header('Content-Type: application/json');
+    echo json_encode(['location' => null, 'error' => 'File too large. Maximum allowed size is 25 MB.']);
+    exit;
+}
+
 // Validate the file is actually an image.
 $allowedMime = [
     'image/jpeg' => 'jpg',

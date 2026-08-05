@@ -23,6 +23,9 @@ COPY backend/nginx.conf /etc/nginx/conf.d/default.conf
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
+# ── PHP configuration (override upload limits) ─────────────────────────────
+COPY docker/php.ini /usr/local/etc/php/conf.d/99-overrides.ini
+
 # ── Permissions ─────────────────────────────────────────────────────────────
 RUN mkdir -p /var/www/html/frontend/data /var/www/html/frontend/data/posts /run/nginx \
     && chown -R www-data:www-data /var/www/html/frontend/data /var/www/html/backend /var/lib/nginx /var/log/nginx /run/nginx \
