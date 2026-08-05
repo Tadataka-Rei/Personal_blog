@@ -119,11 +119,11 @@ function renderPostDetail(post) {
 
     <div class="post-body">
       <p class="post-lead">${post.lead}</p>
-      ${post.sections
+${post.sections
         .map(
           (section) => `
         <h2>${section.heading}</h2>
-        ${section.paragraphs.map((p) => `<p>${p}</p>`).join("")}
+        ${section.paragraphs.join("")}
       `
         )
         .join("")}
